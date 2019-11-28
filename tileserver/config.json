@@ -1,0 +1,40 @@
+{
+  "options": {
+    "paths": {
+      "root": "./",
+      "fonts": "fonts",
+      "styles": "styles",
+      "mbtiles": "data"
+    }
+  },
+  "styles": {
+    "klokantech-basic": {
+      "style": "klokantech-basic/style.json",
+      "tilejson": {
+        "bounds": [
+          5.864417,
+          47.26543,
+          15.05078,
+          55.14777
+        ]
+      }
+    },
+    "osm-bright": {
+      "style": "osm-bright/style.json",
+      "tilejson": {
+        "bounds": [
+          5.864417,
+          47.26543,
+          15.05078,
+          55.14777
+        ]
+      }
+    }
+  },
+  "data": {
+    "v3": {
+      "mbtiles": "osm-2017-07-03-v3.6.1-europe_germany.mbtiles"
+    }
+  }
+}
+

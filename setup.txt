@@ -1,0 +1,42 @@
+# installed tooling
+sudo apt-get install \
+	vim \
+	sudo
+
+# nvm
+nvm via wget script (https://github.com/nvm-sh/nvm)
+nvm install 6
+nvm use 6
+
+# dependencies for 
+sudo apt-get install \
+	libgif-dev \
+	libcairo2-dev \
+	make \
+	g++
+
+# tileserver installation
+npm install -g tileserver-gl-light
+
+# certbot for ssl certificate
+sudo apt-get install certbot python-certbot-nginx
+sudo certbot certonly --nginx
+
+# cronjob for refreshing certbot
+# TODO
+
+## install new version of cmake, because apt cmake is to old..
+sudo apt install libssl-dev
+wget https://github.com/Kitware/CMake/releases/download/v3.16.0/cmake-3.16.0.tar.gz
+tar -xf cmake-3.16.0.tar.gz
+rm cmake-3.16.0.tar.gz
+cd cmake-3.16.0
+./bootstrap
+make -j4
+sudo make install
+cd ..
+rm -r cmake-3.16.0
+
+# install mbgl-offline (build mapbox-gl-native)
+sudo apt install xorg-dev libglu1-mesa-dev libcurl4-openssl-dev
+# https://github.com/LB31/HikingForNerds/wiki/Generating-offline-tiles

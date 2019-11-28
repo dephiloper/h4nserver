@@ -1,0 +1,6 @@
+mbgl-offline
+tileserver/logs/
+tileserver/fonts/*
+tileserver/data/*
+!tileserver/data/README.md
+!tileserver/fonts/get-fonts.sh
