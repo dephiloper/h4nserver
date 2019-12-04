@@ -40,3 +40,8 @@ rm -r cmake-3.16.0
 # install mbgl-offline (build mapbox-gl-native)
 sudo apt install xorg-dev libglu1-mesa-dev libcurl4-openssl-dev
 # https://github.com/LB31/HikingForNerds/wiki/Generating-offline-tiles
+
+# install open-elevation (https://github.com/Jorl17/open-elevation/blob/master/docs/host-your-own.md)
+apt-get install -y libspatialindex-dev unrar-free bc libgdal-dev
+## install virtual env (https://gist.github.com/Geoyi/d9fab4f609e9f75941946be45000632b)
+## for pip gdal installation: https://gis.stackexchange.com/a/74060
