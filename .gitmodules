@@ -1,0 +1,3 @@
+[submodule "open-elevation"]
+	path = open-elevation
+	url = https://github.com/dephiloper/open-elevation.git
