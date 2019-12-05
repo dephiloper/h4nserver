@@ -22,29 +22,29 @@ os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 @app.route("/offline/<float:north>/<float:west>/<float:south>/<float:east>/<int:min_zoom>/<int:max_zoom>")
 def request_offline_data(north: float, west: float, south: float, east: float, min_zoom: int, max_zoom: int):
     if not within_map_bounds(north, west, south, east):
-        abort(400, f"The requested area is not within the map bounds: {MAP_BOUNDS}")
+        abort(400, "The requested area is not within the map bounds: %s" % MAP_BOUNDS)
     if not zoom_valid(min_zoom, max_zoom):
-        abort(400, f"The requested zoom is not valid. The zoom bounds should be within {MIN_ZOOM}-{MAX_ZOOM}.")
-    file_name = f"{north}_{west}_{south}_{east}_{min_zoom}_{max_zoom}.db"
+        abort(400, "The requested zoom is not valid. The zoom bounds should be within %d-%d." % (MIN_ZOOM, MAX_ZOOM))
+    file_name = "%d_%d_%d_%d_%d_%d.db" % (north, west, south, east, min_zoom, max_zoom)
 
-    if not os.path.isfile(f"{DOWNLOAD_DIR}/{file_name}"):
-        os.system(f"./mbgl-offline --style {STYLE} --north={north} --west={west} --south={south} --east={east}"
-                  f" --minZoom=0 --maxZoom=14 --output {DOWNLOAD_DIR}/{file_name}")
+    if not os.path.isfile("%s/%s" % (DOWNLOAD_DIR, file_name)):
+        os.system("./mbgl-offline --style %s --north=%d --west=%d --south=%d --east=%d --minZoom=%d --maxZoom=%d"
+                  "--output %s/%s" % (STYLE, north, west, south, east, min_zoom, max_zoom, DOWNLOAD_DIR, file_name))
 
     file_id = uuid.uuid4().hex
     generated_files[file_id] = {"file_name": file_name, "timestamp": time.time()}
-    return jsonify(id=file_id, file_size=get_file_size(f"{DOWNLOAD_DIR}/{file_name}"),
+    return jsonify(id=file_id, file_size=get_file_size("%s/%s" % (DOWNLOAD_DIR, file_name)),
                    north=north, west=west, south=south, east=east, min_zoom=min_zoom, max_zoom=max_zoom)
 
 
 @app.route("/download/<file_id>")
 def get_offline_data(file_id: str):
     if file_id not in generated_files:
-        abort(404, f"The requested with the id {file_id} can't be found.")
+        abort(404, "The requested with the id %s can't be found." % file_id)
 
     file_name = generated_files[file_id]['file_name']
-    return send_from_directory(f"{DOWNLOAD_DIR}", filename=file_name, as_attachment=True,
-                               attachment_filename=f"{file_id}.db")
+    return send_from_directory(DOWNLOAD_DIR, filename=file_name, as_attachment=True,
+                               attachment_filename="%s.db" % file_id)
 
 
 def within_map_bounds(north: float, west: float, south: float, east: float):
@@ -60,7 +60,7 @@ def zoom_valid(min_zoom: int, max_zoom: int):
 
 def get_file_size(path: str):
     size = os.path.getsize(path) / 1e6
-    return f"{size} mb"
+    return "%d mb" % size
 
 
 if __name__ == "__main__":
