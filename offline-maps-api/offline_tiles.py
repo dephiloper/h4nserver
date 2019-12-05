@@ -15,6 +15,7 @@ DOWNLOAD_DIR = "offline-maps"
 app = Flask(__name__, static_folder="offline-maps")
 manager = Manager()
 generated_files = manager.dict()
+os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 
 @app.route("/offline/<float:north>/<float:west>/<float:south>/<float:east>", defaults={"min_zoom": 0, "max_zoom": 14})
