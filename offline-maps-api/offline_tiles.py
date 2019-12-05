@@ -25,10 +25,10 @@ def request_offline_data(north: float, west: float, south: float, east: float, m
         abort(400, "The requested area is not within the map bounds: %s" % MAP_BOUNDS)
     if not zoom_valid(min_zoom, max_zoom):
         abort(400, "The requested zoom is not valid. The zoom bounds should be within %d-%d." % (MIN_ZOOM, MAX_ZOOM))
-    file_name = "%d_%d_%d_%d_%d_%d.db" % (north, west, south, east, min_zoom, max_zoom)
+    file_name = "%f_%f_%f_%f_%f_%f.db" % (north, west, south, east, min_zoom, max_zoom)
 
     if not os.path.isfile("%s/%s" % (DOWNLOAD_DIR, file_name)):
-        os.system("./mbgl-offline --style %s --north=%d --west=%d --south=%d --east=%d --minZoom=%d --maxZoom=%d"
+        os.system("./mbgl-offline --style %s --north=%f --west=%f --south=%f --east=%f --minZoom=%f --maxZoom=%f"
                   "--output %s/%s" % (STYLE, north, west, south, east, min_zoom, max_zoom, DOWNLOAD_DIR, file_name))
 
     file_id = uuid.uuid4().hex
@@ -60,7 +60,7 @@ def zoom_valid(min_zoom: int, max_zoom: int):
 
 def get_file_size(path: str):
     size = os.path.getsize(path) / 1e6
-    return "%d mb" % size
+    return "%f mb" % size
 
 
 if __name__ == "__main__":
