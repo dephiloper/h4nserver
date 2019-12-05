@@ -28,8 +28,8 @@ def request_offline_data(north: float, west: float, south: float, east: float, m
     file_name = "%f_%f_%f_%f_%f_%f.db" % (north, west, south, east, min_zoom, max_zoom)
 
     if not os.path.isfile("%s/%s" % (DOWNLOAD_DIR, file_name)):
-        os.system("./mbgl-offline --style %s --north=%f --west=%f --south=%f --east=%f --minZoom=%f --maxZoom=%f"
-                  "--output %s/%s" % (STYLE, north, west, south, east, min_zoom, max_zoom, DOWNLOAD_DIR, file_name))
+        os.system("./mbgl-offline --style %s --north=%f --west=%f --south=%f --east=%f --minZoom=%d --maxZoom=%d"
+                  " --output %s/%s" % (STYLE, north, west, south, east, min_zoom, max_zoom, DOWNLOAD_DIR, file_name))
 
     file_id = uuid.uuid4().hex
     generated_files[file_id] = {"file_name": file_name, "timestamp": time.time()}
